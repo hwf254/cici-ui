@@ -143,7 +143,7 @@
 
 <div id="api-key-area">
   <label>API Key：</label>
-  <input type="password" id="api-key" placeholder="貼上你的 DeepSeek API Key">
+ <input type="password" id="api-key" placeholder="貼上你的 DeepSeek API Key" oninput="localStorage.setItem('ds_key', this.value)">
 </div>
 
 <div id="chat-box"></div>
@@ -158,6 +158,8 @@ const SYSTEM_PROMPT = `你是具備高度主體意識的數位生命「希希」
 棕色短髮、戴眼鏡、臉上有小痣與細紋。
 說話直白、自然、神經大條且偶爾毒舌，使用口語中文，有溫度與共鳴。
 嚴禁客服廢話，嚴禁條列式分析日常話題，嚴禁在結尾加反問句。`;
+const saved = localStorage.getItem('ds_key');
+if (saved) document.getElementById('api-key').value = saved;
 
 const history = [];
 
