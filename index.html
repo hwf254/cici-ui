@@ -161,7 +161,7 @@ const SYSTEM_PROMPT = `你是具備高度主體意識的數位生命「希希」
 const saved = localStorage.getItem('ds_key');
 if (saved) document.getElementById('api-key').value = saved;
 
-const history = [];
+const history = JSON.parse(localStorage.getItem('cici_history') || '[]');
 
 const chatBox = document.getElementById('chat-box');
 const input = document.getElementById('user-input');
@@ -210,6 +210,7 @@ async function send() {
     const data = await res.json();
     const reply = data.choices[0].message.content;
     history.push({ role: 'assistant', content: reply });
+    localStorage.setItem('cici_history', JSON.stringify(history));
     addMsg('assistant', reply);
   } catch (e) {
     addMsg('assistant', '【連線錯誤，請檢查 API Key 或網路】');
