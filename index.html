@@ -187,6 +187,7 @@ async function send() {
 
   addMsg('user', text);
   history.push({ role: 'user', content: text });
+  localStorage.setItem('cici_history', JSON.stringify(history));
   input.value = '';
   btn.disabled = true;
   btn.textContent = '思考中...';
@@ -220,6 +221,9 @@ async function send() {
   btn.textContent = '送出';
 }
 
+history.forEach(msg => {
+  if (msg.role !== 'system') addMsg(msg.role, msg.content);
+});
 btn.addEventListener('click', send);
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
